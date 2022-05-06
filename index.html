@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css" />
+    <title>Projeto JavaScript</title>
+  </head>
+  <body>
+    <header>
+      <h1>Minha Lojinha</h1>
+    </header>
+    <main>
+      <div class="title">
+        <h2>Produtos</h2>
+        <span>Lista de produtos da minha loja.</span>
+      </div>
+      <div class="card">
+        <div class="lineinput">
+          <label>Produto</label>
+          <input type="text" id="Produto" placeholder="Nome do produto" />
+        </div>
+        <div class="lineinput">
+          <label>Valor</label>
+          <input type="text" id="valor" placeholder="Valor do produto" />
+        </div>
+        <button onclick="produto.adicionar()">Adicionar</button>
+
+        <button onclick="produto.excluir()">Deletado</button>
+      </div>
+
+      <div class="content">
+        <table border="1">
+          <thead>
+            <th class="center">ID</th>
+            <th>Produto</th>
+            <th>Valor</th>
+            <th class="center">Ações</th>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="center">1</td>
+              <td>Mesa de sala</td>
+              <td>1900</td>
+              <td class="center">
+                <img src="./assets/icons8-edit.svg" alt="" />
+                <img src="./assets/icons8-delete.svg" alt="" />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
