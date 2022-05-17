@@ -2,13 +2,19 @@ class Produto {
     constructor() {
         this.id = 1;
         this.arrayProdutos = [];
+
+        this.editId = null;
     }
 
     salvar() {
         let produto = this.lerDados();
 
         if (this.validaCampos(produto)) {
-            this.adicionar(produto);
+            if (this.editId == null) {
+                this.adicionar(produto);
+            } else {
+                this.atualizar(this.editId, produto);
+            }
         }
 
         this.listTabela();
@@ -36,9 +42,12 @@ class Produto {
 
             let imgEdit = document.createElement("img");
             imgEdit.src = "./assets/icons8-edit.svg";
+            imgEdit.setAttribute("onclick", "produto.preparaEditacao(" + JSON.stringify(this.arrayProdutos[i]) + ")");
+
 
             let imgDelete = document.createElement("img");
             imgDelete.src = "./assets/icons8-delete.svg";
+            imgDelete.setAttribute("onclick", "produto.deletar(" + this.arrayProdutos[i].id + ")");
 
             td_acoes.appendChild(imgEdit);
             td_acoes.appendChild(imgDelete);
@@ -46,8 +55,27 @@ class Produto {
     }
 
     adicionar(produto) {
+        produto.preco = parseFloat(produto.preco)
         this.arrayProdutos.push(produto);
         this.id++;
+    }
+
+    atualizar(id, produto) {
+        for (let i = 0; i < this.arrayProdutos.length; i++) {
+            if (this.arrayProdutos[i].id == id) {
+                this.arrayProdutos[i].nomeProduto = produto.nomeProduto
+                this.arrayProdutos[i].preco = produto.preco
+            }
+        }
+    }
+
+    preparaEditacao(dados) {
+        this.editId = dados.id;
+
+        document.getElementById("produto").value = dados.nomeProduto;
+        document.getElementById("preco").value = dados.preco;
+
+        document.getElementById("btn1").innerText = "Atualizar"
     }
 
     lerDados() {
@@ -78,6 +106,24 @@ class Produto {
     cancelar() {
         document.getElementById("produto").value = "";
         document.getElementById("preco").value = "";
+
+        document.getElementById("btn1").innerText = "Atualizar";
+        this.editId = null;
+    }
+
+    deletar(id) {
+        if (confirm("Deseja realemnte deletar o produto do ID " + id)) {
+            let tbody = document.getElementById("tbody");
+
+            for (let i = 0; i < this.arrayProdutos.length; i++) {
+                if (this.arrayProdutos[i].id == id) {
+                    this.arrayProdutos.splice(i, 1)
+                    tbody.deleteRow(i);
+                }
+            }
+            console.log(this.arrayProdutos)
+        }
+
     }
 }
 
